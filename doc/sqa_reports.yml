@@ -1,0 +1,6 @@
+Applications:
+    msfr_precursor:
+        app_types:
+            - MsfrPrecursorApp
+        content_directory: ${ROOT_DIR}/doc/content
+        log_default: WARNING
