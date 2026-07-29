@@ -356,3 +356,10 @@ binaryoutput
 # large, machine-local artifact; only the checked-in config is tracked.
 .codegraph/
 !codegraph.json
+build/
+*.o
+*.a
+*.la
+*.e
+*_out_line_sample_*.csv
+Miniforge3-Linux-x86_64.sh
