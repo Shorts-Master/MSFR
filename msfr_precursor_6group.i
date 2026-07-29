@@ -3,8 +3,8 @@
     type = GeneratedMeshGenerator
     dim = 1
     xmin = 0
-    xmax = 300
-    nx = 300
+    xmax = 224
+    nx = 224
   []
 []
 
@@ -93,7 +93,7 @@
   [advection_0]
     type = PrecursorAdvection
     variable = C0
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_0]
     type = PrecursorDecay
@@ -110,7 +110,7 @@
   [advection_1]
     type = PrecursorAdvection
     variable = C1
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_1]
     type = PrecursorDecay
@@ -127,7 +127,7 @@
   [advection_2]
     type = PrecursorAdvection
     variable = C2
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_2]
     type = PrecursorDecay
@@ -144,7 +144,7 @@
   [advection_3]
     type = PrecursorAdvection
     variable = C3
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_3]
     type = PrecursorDecay
@@ -161,7 +161,7 @@
   [advection_4]
     type = PrecursorAdvection
     variable = C4
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_4]
     type = PrecursorDecay
@@ -178,7 +178,7 @@
   [advection_5]
     type = PrecursorAdvection
     variable = C5
-    velocity = '400 0 0'
+    velocity = '110 0 0'
   []
   [decay_5]
     type = PrecursorDecay
@@ -275,8 +275,8 @@
     type = LineValueSampler
     variable = 'phi C0 C1 C2 C3 C4 C5'
     start_point = '0 0 0'
-    end_point = '300 0 0'
-    num_points = 301
+    end_point = '224 0 0'
+    num_points = 225
     sort_by = x
   []
 []

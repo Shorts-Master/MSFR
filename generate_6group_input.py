@@ -18,9 +18,9 @@ BETA_TOTAL = sum(b for _, b in GROUPS)
 NU_SIGMA_F = 0.002
 REMOVAL_COEFFICIENT = 0.003
 DIFFUSIVITY = 1.2
-DOMAIN_LENGTH = 300
-NX = 300
-VELOCITY = "50 0 0"
+DOMAIN_LENGTH = 224   # real MSFR core height, Ha, from EVOL/MARS benchmark (Brovchenko et al.)
+NX = 224
+VELOCITY = "110 0 0"   # ~real MSFR core velocity, back-calculated from 4s loop circulation time
 
 def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
     lines = []
