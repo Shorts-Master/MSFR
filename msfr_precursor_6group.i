@@ -93,7 +93,7 @@
   [advection_0]
     type = PrecursorAdvection
     variable = C0
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_0]
     type = PrecursorDecay
@@ -110,7 +110,7 @@
   [advection_1]
     type = PrecursorAdvection
     variable = C1
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_1]
     type = PrecursorDecay
@@ -127,7 +127,7 @@
   [advection_2]
     type = PrecursorAdvection
     variable = C2
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_2]
     type = PrecursorDecay
@@ -144,7 +144,7 @@
   [advection_3]
     type = PrecursorAdvection
     variable = C3
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_3]
     type = PrecursorDecay
@@ -161,7 +161,7 @@
   [advection_4]
     type = PrecursorAdvection
     variable = C4
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_4]
     type = PrecursorDecay
@@ -178,7 +178,7 @@
   [advection_5]
     type = PrecursorAdvection
     variable = C5
-    velocity = '110 0 0'
+    velocity = '400 0 0'
   []
   [decay_5]
     type = PrecursorDecay

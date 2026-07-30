@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, '.')
 from generate_6group_input import generate, GROUPS
 
-velocities = [0, 5, 10, 25, 50, 100, 200, 400]
+velocities = [0, 5, 10, 25, 50, 75, 100, 110, 150, 200, 300, 400]
 results = []
 
 for v in velocities:
