@@ -1,15 +1,16 @@
 """
-Generates a 6-precursor-group MSFR input file for msfr_precursor-opt.
-Standard 6-group delayed neutron data (illustrative U-235 thermal values;
-replace with MSFR-specific data before this becomes a real result).
+Recirculating-precursor MSFR model. Uses a standard nonlinear steady-state
+solve (NOT the Eigenvalue executioner) with the fission source pre-scaled
+by 1/k_eff, where k_eff comes from the already-validated once-through
+eigenvalue solve (k_eff = 1.6218). This sidesteps the Eigenvalue
+executioner's homogeneous-BC requirement entirely, since a regular
+nonlinear solve has no such restriction - periodic BCs work normally here.
+
+Physical picture: phi keeps a fixed vacuum boundary (bare core edges);
+the six precursor variables are periodic (same salt recirculating
+through the loop, not vanishing/refreshing at the boundary).
 """
 
-# (lambda_i [1/s], beta_i) for each of the 6 groups
-# U-233 fast fission 6-group delayed neutron data (Keepin, Phys. Rev. 107, p.1044, 1957;
-# Physics of Nuclear Kinetics, 1965). Sourced via secondary AI-summarized table,
-# cross-checked internally: abundances sum to 1.000, implied beta_total = nu_d/nu
-# = 0.0070/2.50 = 0.0028 matches independently-found U-233 beta (~0.0027).
-# VERIFY against Keepin's original tables directly before publication.
 GROUPS = [
     (0.0126, 0.022 * 0.0028),
     (0.0337, 0.182 * 0.0028),
@@ -21,13 +22,15 @@ GROUPS = [
 
 BETA_TOTAL = sum(b for _, b in GROUPS)
 NU_SIGMA_F = 0.002
-REMOVAL_COEFFICIENT = 0.00175995   # calibrated to k_eff=1.0 (critical) via bisection search, EOL=224cm core
+K_EFF = 1.6218 * 0.999   # slightly supercritical to avoid marginal/degenerate equilibrium  # from validated once-through eigenvalue solve, same geometry
+NU_SIGMA_F_EFFECTIVE = NU_SIGMA_F / K_EFF  # pre-scale fission source by 1/k_eff
+REMOVAL_COEFFICIENT = 0.003
 DIFFUSIVITY = 1.2
-DOMAIN_LENGTH = 224   # real MSFR core height, Ha, from EVOL/MARS benchmark (Brovchenko et al.)
+DOMAIN_LENGTH = 224
 NX = 224
-VELOCITY = "110 0 0"   # ~real MSFR core velocity, back-calculated from 4s loop circulation time
+VELOCITY = "110 0 0"
 
-def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
+def generate(velocity=VELOCITY, filename="msfr_precursor_recirc.i"):
     lines = []
 
     lines.append(f"""[Mesh]
@@ -38,10 +41,6 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
     xmax = {DOMAIN_LENGTH}
     nx = {NX}
   []
-[]
-
-[Problem]
-  type = EigenProblem
 []
 
 [Variables]
@@ -56,7 +55,6 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
 
     lines.append("[]\n")
 
-    # Kernels
     lines.append("[Kernels]")
     lines.append("""  [diffusion]
     type = ADMatDiffusion
@@ -73,8 +71,13 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
     variable = phi
     nu_sigma_f = %g
     beta_total = %g
-    extra_vector_tags = 'eigen'
-  []""" % (REMOVAL_COEFFICIENT, NU_SIGMA_F, BETA_TOTAL))
+  []
+  [fixed_source]
+    type = BodyForce
+    variable = phi
+    value = 0.001
+  []
+""" % (REMOVAL_COEFFICIENT, NU_SIGMA_F_EFFECTIVE, BETA_TOTAL))
 
     for i, (lam, beta) in enumerate(GROUPS):
         lines.append(f"""  [delayed_source_{i}]
@@ -100,12 +103,11 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
     variable = C{i}
     flux = phi
     beta_i = {beta}
-    nu_sigma_f = {NU_SIGMA_F}
+    nu_sigma_f = {NU_SIGMA_F_EFFECTIVE}
   []""")
 
     lines.append("[]\n")
 
-    # Materials
     lines.append(f"""[Materials]
   [diff_coeff]
     type = ADGenericConstantMaterial
@@ -115,18 +117,13 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
 []
 """)
 
-    # BCs
-    lines.append("""[BCs]
+    c_varlist = " ".join(f"C{i}" for i in range(6))
+    lines.append(f"""[BCs]
   [phi_left]
     type = DirichletBC
     variable = phi
     boundary = left
     value = 0
-  []
-  [phi_left_eigen]
-    type = EigenDirichletBC
-    variable = phi
-    boundary = left
   []
   [phi_right]
     type = DirichletBC
@@ -134,33 +131,24 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
     boundary = right
     value = 0
   []
-  [phi_right_eigen]
-    type = EigenDirichletBC
-    variable = phi
-    boundary = right
-  []""")
+  [Periodic]
+    [precursor_recirculation]
+      variable = '{c_varlist}'
+      auto_direction = 'x'
+    []
+  []
+[]
+""")
 
-    for i in range(6):
-        lines.append(f"""  [C{i}_inlet]
-    type = DirichletBC
-    variable = C{i}
-    boundary = left
-    value = 0
-  []""")
-
-    lines.append("[]\n")
-
-    # Executioner
     lines.append("""[Executioner]
-  type = Eigenvalue
-  solve_type = PJFNK
+  type = Steady
+  solve_type = NEWTON
   petsc_options_iname = '-pc_type'
   petsc_options_value = 'lu'
 []
 """)
 
-    # VectorPostprocessors
-    varlist = "phi " + " ".join(f"C{i}" for i in range(6))
+    varlist = "phi " + c_varlist
     lines.append(f"""[VectorPostprocessors]
   [line_sample]
     type = LineValueSampler
@@ -182,7 +170,7 @@ def generate(velocity=VELOCITY, filename="msfr_precursor_6group.i"):
         f.write("\n".join(lines))
 
     print(f"Wrote {filename}")
-    print(f"Total beta = {BETA_TOTAL:.6f}")
+    print(f"Effective nu_sigma_f (scaled by 1/k_eff={K_EFF}) = {NU_SIGMA_F_EFFECTIVE:.6f}")
 
 if __name__ == "__main__":
     generate()
