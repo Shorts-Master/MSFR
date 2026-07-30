@@ -51,44 +51,44 @@
     type = PromptFissionSource
     variable = phi
     nu_sigma_f = 0.002
-    beta_total = 0.006502
+    beta_total = 0.0028
     extra_vector_tags = 'eigen'
   []
   [delayed_source_0]
     type = DelayedNeutronSource
     variable = phi
     precursor = C0
-    lambda = 0.0124
+    lambda = 0.0126
   []
   [delayed_source_1]
     type = DelayedNeutronSource
     variable = phi
     precursor = C1
-    lambda = 0.0305
+    lambda = 0.0337
   []
   [delayed_source_2]
     type = DelayedNeutronSource
     variable = phi
     precursor = C2
-    lambda = 0.111
+    lambda = 0.139
   []
   [delayed_source_3]
     type = DelayedNeutronSource
     variable = phi
     precursor = C3
-    lambda = 0.301
+    lambda = 0.325
   []
   [delayed_source_4]
     type = DelayedNeutronSource
     variable = phi
     precursor = C4
-    lambda = 1.14
+    lambda = 1.13
   []
   [delayed_source_5]
     type = DelayedNeutronSource
     variable = phi
     precursor = C5
-    lambda = 3.01
+    lambda = 2.5
   []
   [advection_0]
     type = PrecursorAdvection
@@ -98,13 +98,13 @@
   [decay_0]
     type = PrecursorDecay
     variable = C0
-    lambda = 0.0124
+    lambda = 0.0126
   []
   [production_0]
     type = PrecursorProduction
     variable = C0
     flux = phi
-    beta_i = 0.000215
+    beta_i = 6.159999999999999e-05
     nu_sigma_f = 0.002
   []
   [advection_1]
@@ -115,13 +115,13 @@
   [decay_1]
     type = PrecursorDecay
     variable = C1
-    lambda = 0.0305
+    lambda = 0.0337
   []
   [production_1]
     type = PrecursorProduction
     variable = C1
     flux = phi
-    beta_i = 0.001424
+    beta_i = 0.0005096
     nu_sigma_f = 0.002
   []
   [advection_2]
@@ -132,13 +132,13 @@
   [decay_2]
     type = PrecursorDecay
     variable = C2
-    lambda = 0.111
+    lambda = 0.139
   []
   [production_2]
     type = PrecursorProduction
     variable = C2
     flux = phi
-    beta_i = 0.001274
+    beta_i = 0.00039479999999999995
     nu_sigma_f = 0.002
   []
   [advection_3]
@@ -149,13 +149,13 @@
   [decay_3]
     type = PrecursorDecay
     variable = C3
-    lambda = 0.301
+    lambda = 0.325
   []
   [production_3]
     type = PrecursorProduction
     variable = C3
     flux = phi
-    beta_i = 0.002568
+    beta_i = 0.0011284
     nu_sigma_f = 0.002
   []
   [advection_4]
@@ -166,13 +166,13 @@
   [decay_4]
     type = PrecursorDecay
     variable = C4
-    lambda = 1.14
+    lambda = 1.13
   []
   [production_4]
     type = PrecursorProduction
     variable = C4
     flux = phi
-    beta_i = 0.000748
+    beta_i = 0.0003584
     nu_sigma_f = 0.002
   []
   [advection_5]
@@ -183,13 +183,13 @@
   [decay_5]
     type = PrecursorDecay
     variable = C5
-    lambda = 3.01
+    lambda = 2.5
   []
   [production_5]
     type = PrecursorProduction
     variable = C5
     flux = phi
-    beta_i = 0.000273
+    beta_i = 0.0003472
     nu_sigma_f = 0.002
   []
 []

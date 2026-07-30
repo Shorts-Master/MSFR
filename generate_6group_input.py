@@ -5,13 +5,18 @@ replace with MSFR-specific data before this becomes a real result).
 """
 
 # (lambda_i [1/s], beta_i) for each of the 6 groups
+# U-233 fast fission 6-group delayed neutron data (Keepin, Phys. Rev. 107, p.1044, 1957;
+# Physics of Nuclear Kinetics, 1965). Sourced via secondary AI-summarized table,
+# cross-checked internally: abundances sum to 1.000, implied beta_total = nu_d/nu
+# = 0.0070/2.50 = 0.0028 matches independently-found U-233 beta (~0.0027).
+# VERIFY against Keepin's original tables directly before publication.
 GROUPS = [
-    (0.0124, 0.000215),
-    (0.0305, 0.001424),
-    (0.111,  0.001274),
-    (0.301,  0.002568),
-    (1.14,   0.000748),
-    (3.01,   0.000273),
+    (0.0126, 0.022 * 0.0028),
+    (0.0337, 0.182 * 0.0028),
+    (0.139,  0.141 * 0.0028),
+    (0.325,  0.403 * 0.0028),
+    (1.13,   0.128 * 0.0028),
+    (2.50,   0.124 * 0.0028),
 ]
 
 BETA_TOTAL = sum(b for _, b in GROUPS)
