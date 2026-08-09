@@ -50,7 +50,7 @@
   [absorption]
     type = NetRemoval
     variable = phi
-    removal_coefficient = 0.00262173
+    removal_coefficient = 0.00237018
   []
   [prompt_fission]
     type = PromptFissionSource
@@ -203,7 +203,7 @@
   [diff_coeff]
     type = ADGenericConstantMaterial
     prop_names = D
-    prop_values = 1.2
+    prop_values = 1.5825
   []
 []
 
