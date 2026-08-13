@@ -48,8 +48,8 @@ GROUPS = [
 
 BETA_TOTAL = sum(b for _, b in GROUPS)
 NU_SIGMA_F = 0.0034179  # REAL value: ENDF/B-VII.1 sigma_f, sigma_gamma, nu-bar at 1 MeV, x real EVOL salt composition (U-233 contribution only - see compute_real_xs.py)
-DIFFUSIVITY = 1.5825  # REAL value: ENDF/B-VII.1 total xs (Li-7, F-19, Th-232) at 1 MeV, x real EVOL salt composition (see compute_real_D.py). Uses total xs as transport xs approximation - not full angular-distribution transport theory.
-REMOVAL_COEFFICIENT = 0.00237018  # calibrated critical, 2D RZ geometry, with REAL ENDF-sourced D and nu_sigma_f
+DIFFUSIVITY = 1.6382  # REAL value: ENDF/B-VII.1 elastic+total xs, transport-corrected via mu_bar=2/(3A) (Lamarsh textbook formula), x real EVOL salt composition (see compute_real_D_v2.py).
+REMOVAL_COEFFICIENT = 0.0021542  # REAL physical Sigma_a: U-233 fission+capture + Th-232 capture, from ENDF/B-VII.1 (see compute_real_xs_v2.py). NOT tuned to criticality - this is what real absorption physics predicts, still missing Li-7/F-19 absorption.
 RA = 112   # core radius, cm (EVOL/MARS benchmark)
 HA = 224   # core height, cm (EVOL/MARS benchmark)
 NR = 56
