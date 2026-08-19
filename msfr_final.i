@@ -50,12 +50,12 @@
   [absorption]
     type = NetRemoval
     variable = phi
-    removal_coefficient = 0.0021542
+    removal_coefficient = 0.00218238
   []
   [prompt_fission]
     type = PromptFissionSource
     variable = phi
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.00351155
     beta_total = 0.0028
     extra_vector_tags = 'eigen'
   []
@@ -110,7 +110,7 @@
     variable = C0
     flux = phi
     beta_i = 6.159999999999999e-05
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
   [advection_1]
     type = PrecursorAdvection
@@ -127,7 +127,7 @@
     variable = C1
     flux = phi
     beta_i = 0.0005096
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
   [advection_2]
     type = PrecursorAdvection
@@ -144,7 +144,7 @@
     variable = C2
     flux = phi
     beta_i = 0.00039479999999999995
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
   [advection_3]
     type = PrecursorAdvection
@@ -161,7 +161,7 @@
     variable = C3
     flux = phi
     beta_i = 0.0011284
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
   [advection_4]
     type = PrecursorAdvection
@@ -178,7 +178,7 @@
     variable = C4
     flux = phi
     beta_i = 0.0003584
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
   [advection_5]
     type = PrecursorAdvection
@@ -195,7 +195,7 @@
     variable = C5
     flux = phi
     beta_i = 0.0003472
-    nu_sigma_f = 0.0034179
+    nu_sigma_f = 0.003511554
   []
 []
 
