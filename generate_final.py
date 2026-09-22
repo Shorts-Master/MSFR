@@ -47,9 +47,9 @@ GROUPS = [
 ]
 
 BETA_TOTAL = sum(b for _, b in GROUPS)
-NU_SIGMA_F = 0.003511554  # REAL, flux-weighted (Maxwellian, T=1.34 MeV real measured U-233 spectrum) sigma_f, x nu-bar, x real EVOL salt composition (see flux_weight.py)
+NU_SIGMA_F = 0.003693775  # REAL, fully flux-weighted (Maxwellian, T=1.34 MeV): sigma_f x nu-bar, both flux-weighted, x real EVOL salt composition
 DIFFUSIVITY = 1.6382  # REAL value: ENDF/B-VII.1 elastic+total xs, transport-corrected via mu_bar=2/(3A) (Lamarsh textbook formula), x real EVOL salt composition (see compute_real_D_v2.py).
-REMOVAL_COEFFICIENT = 0.002182382  # REAL, flux-weighted Sigma_a: U-233 (flux-weighted sigma_f+sigma_g) + Th-232 capture (still 1-MeV point) + Li-7/F-19 (negligible)
+REMOVAL_COEFFICIENT = 0.001960676  # REAL, fully flux-weighted Sigma_a: U-233 (sigma_f+sigma_g flux-weighted) + Th-232 (sigma_g flux-weighted) + Li-7/F-19 (negligible)
 RA = 112   # core radius, cm (EVOL/MARS benchmark)
 HA = 224   # core height, cm (EVOL/MARS benchmark)
 NR = 56
